@@ -1,0 +1,23 @@
+{
+  "name": "meter-recorder",
+  "version": "0.1.0",
+  "description": "Fetch temperature periodically from SwitchBot Meter by GAS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Syuparn/meter-recorder.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Syuparn/meter-recorder/issues"
+  },
+  "homepage": "https://github.com/Syuparn/meter-recorder#readme",
+  "dependencies": {
+    "@types/google-apps-script": "^1.0.51"
+  }
+}
