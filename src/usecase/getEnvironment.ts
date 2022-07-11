@@ -13,7 +13,7 @@ class GetEnvironment implements InputPort<GetEnvironmentInputData> {
     @inject('OutputPort')
     private readonly outputPort: OutputPort<GetEnvironmentOutputData>,
     @inject('EnvironmentRepository')
-    private readonly environmentRepository: EnvironmentRepository
+    private readonly environmentRepository: EnvironmentRepository,
   ) {}
 
   execute(inputData: GetEnvironmentInputData): void {

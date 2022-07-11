@@ -1,5 +1,5 @@
 export function toValueObject<TPrimitive, TVO extends TPrimitive>(
-  primitive: TPrimitive
+  primitive: TPrimitive,
 ): TVO {
   let vo: TVO;
   vo = primitive as any;
@@ -7,7 +7,7 @@ export function toValueObject<TPrimitive, TVO extends TPrimitive>(
 }
 
 export function fromValueObject<TVO extends TPrimitive, TPrimitive>(
-  vo: TVO
+  vo: TVO,
 ): TPrimitive {
   return vo;
 }
