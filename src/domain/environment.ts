@@ -1,5 +1,5 @@
 export interface Environment {
-  readonly time: Date;
+  readonly timestamp: Date;
   readonly temperature: TemperatureCelcicus;
   readonly humidity: HumidityPercent;
 }
@@ -13,6 +13,5 @@ export interface HumidityPercent extends Number {
 }
 
 export interface EnvironmentRepository {
-  // TODO: enable to specify time
-  get(): Environment;
+  get(timestamp: Date): Environment;
 }

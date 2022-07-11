@@ -7,10 +7,10 @@ import {
 import { toValueObject } from '../domain/valueobject';
 
 class MeterEnvironmentRepository implements EnvironmentRepository {
-  get(): Environment {
+  get(timestamp: Date): Environment {
     // FIXME: impl
     return {
-      time: new Date(),
+      timestamp: new Date(),
       temperature: toValueObject<Number, TemperatureCelcicus>(30.0),
       humidity: toValueObject<Number, HumidityPercent>(70.0),
     };
