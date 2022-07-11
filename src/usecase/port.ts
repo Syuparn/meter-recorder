@@ -1,8 +1,7 @@
 export interface InputPort<TInputData> {
-  execute(inputData: TInputData): void
+  execute(inputData: TInputData): void;
 }
 
 export interface OutputPort<TOutputData> {
-  present(outputData: TOutputData): void
+  present(outputData: TOutputData): void;
 }
-

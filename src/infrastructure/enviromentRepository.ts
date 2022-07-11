@@ -1,6 +1,10 @@
-import { TemperatureCelcicus, Environment, EnvironmentRepository, HumidityPercent } from "../domain/environment";
-import { toValueObject } from "../domain/valueobject";
-
+import {
+  TemperatureCelcicus,
+  Environment,
+  EnvironmentRepository,
+  HumidityPercent,
+} from '../domain/environment';
+import { toValueObject } from '../domain/valueobject';
 
 class MeterEnvironmentRepository implements EnvironmentRepository {
   get(): Environment {
@@ -9,6 +13,6 @@ class MeterEnvironmentRepository implements EnvironmentRepository {
       time: new Date(),
       temperature: toValueObject<Number, TemperatureCelcicus>(30.0),
       humidity: toValueObject<Number, HumidityPercent>(70.0),
-    }
+    };
   }
 }
