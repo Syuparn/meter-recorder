@@ -1,8 +1,16 @@
 import { inject, injectable } from 'tsyringe';
-import { Environment, EnvironmentRepository } from '../domain/environment';
+import {
+  Environment,
+  EnvironmentRepository,
+  HumidityPercent,
+  TemperatureCelcicus,
+} from '../domain/environment';
+import { toValueObject } from '../domain/valueobject';
 import { InputPort, OutputPort } from './port';
 
-export interface GetEnvironmentInputData {}
+export interface GetEnvironmentInputData {
+  timestamp: Date;
+}
 export interface GetEnvironmentOutputData {
   environment: Environment;
 }
@@ -18,5 +26,13 @@ class GetEnvironment implements InputPort<GetEnvironmentInputData> {
 
   execute(inputData: GetEnvironmentInputData): void {
     // FIXME: impl
+    const out = {
+      environment: {
+        timestamp: new Date(),
+        temperature: toValueObject<Number, TemperatureCelcicus>(23.4),
+        humidity: toValueObject<Number, HumidityPercent>(78.9),
+      },
+    };
+    this.outputPort.present(out);
   }
 }

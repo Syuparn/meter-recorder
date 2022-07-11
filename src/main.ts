@@ -1,4 +1,9 @@
+import { container } from 'tsyringe';
+import { Controller } from './adapter/controller';
+
 export function handler() {
-  console.log('Hello, world!');
-  console.log(new Date());
+  const controller = container.resolve(Controller);
+  // TODO: enable to specify which method to execute
+  const req = { timestamp: new Date() };
+  controller.getEnvironment(req);
 }
