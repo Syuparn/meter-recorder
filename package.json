@@ -4,7 +4,7 @@
   "description": "Fetch temperature periodically from SwitchBot Meter by GAS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,10 @@
   "dependencies": {
     "@types/google-apps-script": "^1.0.51",
     "typescript": "^4.7.4"
+  },
+  "devDependencies": {
+    "@types/jest": "^28.1.4",
+    "jest": "^28.1.2",
+    "ts-jest": "^28.0.5"
   }
 }

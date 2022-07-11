@@ -16,3 +16,11 @@ $ clasp create --rootDir ./src
 ```bash
 $ clasp push
 ```
+
+# for Developers
+
+## Test
+
+```bash
+$ npm test
+```
