@@ -1,6 +1,8 @@
 # meter-recorder
 Fetch temperature periodically from [SwitchBot Meter Plus](https://us.switch-bot.com/products/switchbot-meter-plus) by [GAS](https://www.google.com/script/start/)
 
+(Under construction...)
+
 # Create Project
 
 ```bash
@@ -23,4 +25,10 @@ $ clasp push
 
 ```bash
 $ npm test
+```
+
+## Format soruce codes
+
+```bash
+$ npm run fmt
 ```
