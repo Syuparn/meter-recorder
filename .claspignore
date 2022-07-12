@@ -1,0 +1,4 @@
+# Note: The .claspignore patterns are applied relative from the rootDir.
+
+# prevent ReferenceError occured by jest functions
+**/*.test.ts
