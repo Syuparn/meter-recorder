@@ -6,7 +6,7 @@ import {
 } from '../domain/environment';
 import { toValueObject } from '../domain/valueobject';
 
-class MeterEnvironmentRepository implements EnvironmentRepository {
+export class MeterEnvironmentRepository implements EnvironmentRepository {
   get(timestamp: Date): Environment {
     // FIXME: impl
     return {

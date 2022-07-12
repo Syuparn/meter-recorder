@@ -14,7 +14,7 @@ export interface GetEnvironmentOutputData {
   environment: Environment;
 }
 
-class GetEnvironment implements InputPort<GetEnvironmentInputData> {
+export class GetEnvironment implements InputPort<GetEnvironmentInputData> {
   constructor(
     private readonly outputPort: OutputPort<GetEnvironmentOutputData>,
     private readonly environmentRepository: EnvironmentRepository,

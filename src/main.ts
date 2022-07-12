@@ -1,4 +1,7 @@
+import { container } from './di/container';
+
 export function handler() {
-  // FIXME: impl
-  console.log('Hello, world!');
+  const controller = container();
+  const req = { timestamp: new Date() };
+  controller.getEnvironment(req);
 }
