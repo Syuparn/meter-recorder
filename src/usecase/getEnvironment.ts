@@ -21,14 +21,8 @@ export class GetEnvironment implements InputPort<GetEnvironmentInputData> {
   ) {}
 
   execute(inputData: GetEnvironmentInputData): void {
-    // FIXME: impl
-    const out = {
-      environment: {
-        timestamp: new Date(),
-        temperature: toValueObject<Number, TemperatureCelcicus>(23.4),
-        humidity: toValueObject<Number, HumidityPercent>(78.9),
-      },
-    };
-    this.outputPort.present(out);
+    const environment = this.environmentRepository.get(inputData.timestamp);
+    const outputData = { environment: environment };
+    this.outputPort.present(outputData);
   }
 }
