@@ -1,4 +1,3 @@
-import { injectable } from 'tsyringe';
 import {
   TemperatureCelcicus,
   Environment,
@@ -7,7 +6,6 @@ import {
 } from '../domain/environment';
 import { toValueObject } from '../domain/valueobject';
 
-@injectable()
 class MeterEnvironmentRepository implements EnvironmentRepository {
   get(timestamp: Date): Environment {
     // FIXME: impl

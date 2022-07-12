@@ -1,4 +1,3 @@
-import { inject, injectable } from 'tsyringe';
 import {
   Environment,
   EnvironmentRepository,
@@ -15,12 +14,9 @@ export interface GetEnvironmentOutputData {
   environment: Environment;
 }
 
-@injectable()
 class GetEnvironment implements InputPort<GetEnvironmentInputData> {
   constructor(
-    @inject('OutputPort')
     private readonly outputPort: OutputPort<GetEnvironmentOutputData>,
-    @inject('EnvironmentRepository')
     private readonly environmentRepository: EnvironmentRepository,
   ) {}
 
