@@ -1,3 +1,5 @@
 node_modules/
 # include credentials (ex: scriptId)
 .clasp.json
+# bundled source code from src/
+dist/main.js

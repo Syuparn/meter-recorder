@@ -32,3 +32,9 @@ $ npm test
 ```bash
 $ npm run fmt
 ```
+
+## Bundle files into dist/
+
+```bash
+$ npm run build
+```
