@@ -13,5 +13,5 @@ export interface HumidityPercent extends Number {
 }
 
 export interface EnvironmentRepository {
-  get(timestamp: Date): Environment;
+  get(timestamp: Date): Promise<Environment>;
 }

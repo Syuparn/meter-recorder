@@ -1,5 +1,5 @@
 export interface InputPort<TInputData> {
-  execute(inputData: TInputData): void;
+  execute(inputData: TInputData): Promise<void>;
 }
 
 export interface OutputPort<TOutputData> {

@@ -9,7 +9,7 @@ import { GetEnvironment, GetEnvironmentOutputData } from './getEnvironment';
 import { OutputPort } from './port';
 
 class MockEnvironmentRepository implements EnvironmentRepository {
-  get(timestamp: Date): Environment {
+  async get(timestamp: Date): Promise<Environment> {
     return {
       timestamp: timestamp,
       temperature: toValueObject<Number, TemperatureCelcicus>(23.4),
@@ -36,13 +36,14 @@ test('get environment', () => {
   // 2006 Jan 2 15:04:05.000
   const inputData = { timestamp: new Date(2006, 0, 2, 15, 4, 5) };
 
-  inputPort.execute(inputData);
-
-  expect(outputPort.out).toStrictEqual({
-    environment: {
-      timestamp: new Date(2006, 0, 2, 15, 4, 5),
-      temperature: toValueObject<Number, TemperatureCelcicus>(23.4),
-      humidity: toValueObject<Number, HumidityPercent>(78.9),
-    },
+  // NOTE: promise must be returned, otherwise test finishes and passes BEFORE it is resolved!
+  return inputPort.execute(inputData).then(() => {
+    expect(outputPort.out).toStrictEqual({
+      environment: {
+        timestamp: new Date(2006, 0, 2, 15, 4, 5),
+        temperature: toValueObject<Number, TemperatureCelcicus>(23.4),
+        humidity: toValueObject<Number, HumidityPercent>(78.9),
+      },
+    });
   });
 });

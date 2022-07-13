@@ -20,8 +20,10 @@ export class GetEnvironment implements InputPort<GetEnvironmentInputData> {
     private readonly environmentRepository: EnvironmentRepository,
   ) {}
 
-  execute(inputData: GetEnvironmentInputData): void {
-    const environment = this.environmentRepository.get(inputData.timestamp);
+  async execute(inputData: GetEnvironmentInputData): Promise<void> {
+    const environment = await this.environmentRepository.get(
+      inputData.timestamp,
+    );
     const outputData = { environment: environment };
     this.outputPort.present(outputData);
   }
