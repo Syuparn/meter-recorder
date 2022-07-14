@@ -22,6 +22,7 @@
   "dependencies": {
     "@types/google-apps-script": "^1.0.51",
     "@types/node-fetch": "^2.6.2",
+    "dotenv": "^16.0.1",
     "esbuild": "^0.14.49",
     "node-fetch": "^2.6.7",
     "talkback": "^3.0.1",

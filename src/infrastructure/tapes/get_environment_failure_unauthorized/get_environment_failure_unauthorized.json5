@@ -1,0 +1,48 @@
+{
+    meta: {
+        createdAt: '2022-07-14T13:27:54.463Z',
+        host: 'https://api.switch-bot.com/v1.0',
+        resHumanReadable: true,
+    },
+    req: {
+        headers: {
+            authorization: 'dummyauth1234',
+            accept: '*/*',
+            'user-agent': 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+            'accept-encoding': 'gzip,deflate',
+            connection: 'close',
+        },
+        url: '/devices/1234567890AB/status',
+        method: 'GET',
+        body: '',
+    },
+    res: {
+        status: 401,
+        headers: {
+            date: [
+                'Thu, 14 Jul 2022 13:27:53 GMT',
+            ],
+            'content-type': [
+                'application/json',
+            ],
+            'content-length': [
+                '26',
+            ],
+            connection: [
+                'close',
+            ],
+            'x-amzn-requestid': [
+                'ede1f4f6-3382-427e-8aad-c6a65c90b251',
+            ],
+            'x-amzn-errortype': [
+                'UnauthorizedException',
+            ],
+            'x-amz-apigw-id': [
+                'VQj59Ee1oAMFd4Q=',
+            ],
+        },
+        body: {
+            message: 'Unauthorized',
+        },
+    },
+}

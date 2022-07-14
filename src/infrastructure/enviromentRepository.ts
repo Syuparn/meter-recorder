@@ -1,3 +1,4 @@
+import fetch from 'node-fetch';
 import { Config } from '../config/config';
 import {
   TemperatureCelcicus,
@@ -17,13 +18,58 @@ export class MeterEnvironmentRepository implements EnvironmentRepository {
   }
 
   async get(timestamp: Date): Promise<Environment> {
-    //const res = await fetch('http://example.com');
+    const res = await fetch(this.url, {
+      headers: {
+        Authorization: this.auth_token,
+      },
+    });
 
-    // FIXME: impl
+    switch (res.status) {
+      case 200:
+        break; // ok
+      case 401:
+        throw Error('Unauthorized: auth token may be invalid');
+      default:
+        throw Error(
+          `Unexpected: status code is not 200 (received: ${res.status})`,
+        );
+    }
+
+    const body = await res.json();
+
+    switch (body.statusCode) {
+      case 100:
+        break; // ok
+      case 190:
+        throw Error(`NotFoundDevice: meter device is not found: ${this.url}`);
+      case undefined:
+        throw Error(
+          `Unexpected: body does not contain statusCode: ${JSON.stringify(
+            body,
+          )}`,
+        );
+      default:
+        throw Error(
+          `Unexpected: body.statusCode is not 100 (received: ${body.statusCode})`,
+        );
+    }
+
+    if (body.body == null) {
+      throw Error(`Unexpected: body.body must not be null`);
+    }
+    if (body.body.temperature == null) {
+      throw Error(`Unexpected: temperature must not be null`);
+    }
+    if (body.body.humidity == null) {
+      throw Error(`Unexpected: humidity must not be null`);
+    }
+
     return {
-      timestamp: new Date(),
-      temperature: toValueObject<Number, TemperatureCelcicus>(30.0),
-      humidity: toValueObject<Number, HumidityPercent>(70.0),
+      timestamp: timestamp,
+      temperature: toValueObject<Number, TemperatureCelcicus>(
+        body.body.temperature,
+      ),
+      humidity: toValueObject<Number, HumidityPercent>(body.body.humidity),
     };
   }
 

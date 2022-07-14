@@ -1,0 +1,41 @@
+{
+  meta: {
+    createdAt: '2022-07-14T14:19:35.104Z',
+    host: 'https://api.switch-bot.com/v1.0',
+    resHumanReadable: true,
+  },
+  req: {
+    headers: {
+      accept: '*/*',
+      'user-agent': 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+      'accept-encoding': 'gzip,deflate',
+      connection: 'close',
+    },
+    url: '/devices/1234567890AB/status',
+    method: 'GET',
+    body: '',
+  },
+  res: {
+    status: 200,
+    headers: {
+      date: ['Thu, 14 Jul 2022 14:19:33 GMT'],
+      'content-type': ['application/json'],
+      'content-length': ['160'],
+      connection: ['close'],
+      'x-amzn-requestid': ['af747daf-592d-4178-a678-ee7749e05631'],
+      'x-amz-apigw-id': ['VQreaG0SoAMFlkA='],
+      'x-amzn-trace-id': ['Root=1-62d025f5-7c06af607dd19e0a0f8b9731;Sampled=0'],
+    },
+    body: {
+      statusCode: 100,
+      body: {
+        deviceId: '1234567890AB',
+        deviceType: 'MeterPlus',
+        hubDeviceId: 'HUB123456789',
+        humidity: 77,
+        // edited: delete temperature
+      },
+      message: 'success',
+    },
+  },
+}

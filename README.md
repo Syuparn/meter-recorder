@@ -27,6 +27,8 @@ $ clasp push
 $ npm test
 ```
 
+NOTE: You should set environment variables to edit some unittests. Variables are set by [dotenv](https://www.npmjs.com/package/dotenv) (see `.env.example` file).
+
 ## Format soruce codes
 
 ```bash

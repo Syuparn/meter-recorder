@@ -3,3 +3,5 @@ node_modules/
 .clasp.json
 # bundled source code from src/
 dist/main.js
+# write envs to read credentials
+.env

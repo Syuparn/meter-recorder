@@ -1,0 +1,49 @@
+{
+    meta: {
+        createdAt: '2022-07-14T13:01:17.367Z',
+        host: 'https://api.switch-bot.com/v1.0',
+        resHumanReadable: true,
+    },
+    req: {
+        headers: {
+            accept: '*/*',
+            'user-agent': 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+            'accept-encoding': 'gzip,deflate',
+            connection: 'close',
+        },
+        url: '/devices/NOTFOUND404/status',
+        method: 'GET',
+        body: '',
+    },
+    res: {
+        status: 200,
+        headers: {
+            date: [
+                'Thu, 14 Jul 2022 13:01:16 GMT',
+            ],
+            'content-type': [
+                'application/json',
+            ],
+            'content-length': [
+                '55',
+            ],
+            connection: [
+                'close',
+            ],
+            'x-amzn-requestid': [
+                'ebf5549f-ded2-4c60-95ba-d2e4b1b441ba',
+            ],
+            'x-amz-apigw-id': [
+                'VQgAaGXXoAMFlkw=',
+            ],
+            'x-amzn-trace-id': [
+                'Root=1-62d0139c-3f3416112280d87b12335b94;Sampled=0',
+            ],
+        },
+        body: {
+            statusCode: 190,
+            body: {},
+            message: 'wrong deviceId',
+        },
+    },
+}
