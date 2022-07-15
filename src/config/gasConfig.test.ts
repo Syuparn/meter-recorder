@@ -16,13 +16,13 @@ test.each([
       switchbotEndpoint: 'http://example.com',
       meterDeviceID: '1234567890AB',
       switchbotAuthToken: 'auth1234',
-      folderName: 'my_folder',
+      spreadSheetID: 'sheetID123',
     },
     expected: new Config(
       'http://example.com',
       '1234567890AB',
       'auth1234',
-      'my_folder',
+      'sheetID123',
     ),
   },
   {
@@ -31,14 +31,9 @@ test.each([
       switchbotEndpoint: null,
       meterDeviceID: null,
       switchbotAuthToken: null,
-      folderName: null,
+      spreadSheetID: null,
     },
-    expected: new Config(
-      'https://api.switch-bot.com/v1.0',
-      '',
-      '',
-      'meter_recorder',
-    ),
+    expected: new Config('https://api.switch-bot.com/v1.0', '', '', ''),
   },
   {
     name: 'empty string is treated like null',
@@ -46,14 +41,9 @@ test.each([
       switchbotEndpoint: '',
       meterDeviceID: '',
       switchbotAuthToken: '',
-      folderName: '',
+      spreadSheetID: '',
     },
-    expected: new Config(
-      'https://api.switch-bot.com/v1.0',
-      '',
-      '',
-      'meter_recorder',
-    ),
+    expected: new Config('https://api.switch-bot.com/v1.0', '', '', ''),
   },
 ])('$name', ({ properties, expected }) => {
   const configFactory = new GASConfigFactory(new DummyProperties(properties));

@@ -12,7 +12,7 @@ export class GASConfigFactory implements ConfigFactory {
       this.properties.getProperty('switchbotEndpoint') ?? '',
       this.properties.getProperty('meterDeviceID') ?? '',
       this.properties.getProperty('switchbotAuthToken') ?? '',
-      this.properties.getProperty('folderName') ?? '',
+      this.properties.getProperty('spreadSheetID') ?? '',
     );
   }
 }
