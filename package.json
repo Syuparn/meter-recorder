@@ -4,7 +4,7 @@
   "description": "Fetch temperature periodically from SwitchBot Meter by GAS",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --runInBand --detectOpenHandles",
     "fmt": "prettier --write src",
     "build": "node build.js"
   },

@@ -1,3 +1,4 @@
+import fetch from 'node-fetch';
 import talkback from 'talkback';
 import TalkbackServer from 'talkback/server';
 import Tape from 'talkback/tape';
@@ -34,15 +35,18 @@ const dummyDeviceID = '1234567890AB';
 const dummyHubDeviceID = 'HUB123456789';
 const dummyAuthToken = 'dummyauth1234';
 
-function recordTape(tapeName: string): TalkbackServer {
+async function recordTape(tapeName: string): Promise<TalkbackServer> {
   return handleTape(tapeName, true);
 }
 
-function replayTape(tapeName: string): TalkbackServer {
+async function replayTape(tapeName: string): Promise<TalkbackServer> {
   return handleTape(tapeName, false);
 }
 
-function handleTape(tapeName: string, recording: boolean): TalkbackServer {
+async function handleTape(
+  tapeName: string,
+  recording: boolean,
+): Promise<TalkbackServer> {
   let opts: Partial<Options> = {
     host: 'https://api.switch-bot.com/v1.0',
     port: 5544,
@@ -68,7 +72,7 @@ function handleTape(tapeName: string, recording: boolean): TalkbackServer {
   }
 
   const server = talkback(opts);
-  server.start(() => console.log('Talkback Started'));
+  await server.start(() => console.log(`Talkback Started: tape: ${tapeName}`));
   return server;
 }
 
@@ -102,35 +106,31 @@ function urlMatcher(tape: Tape, req: Req): boolean {
   return req.url === tape.req.url;
 }
 
-test('get environment from meter', () => {
+test('get environment from meter', async () => {
   //const recorder = recordTape('get_environment_success');
-  const recorder = replayTape('get_environment_success');
+  const recorder = await replayTape('get_environment_success');
 
   const config = new Config(
     'http://localhost:5544', // to talkback proxy server
     envs.METER_DEVICE_ID,
     envs.SWITCHBOT_AUTH_TOKEN,
   );
-  const repository = new MeterEnvironmentRepository(config);
+  const repository = new MeterEnvironmentRepository(config, fetch);
 
-  // NOTE: promise must be returned, otherwise test finishes and passes BEFORE it is resolved!
-  return repository
-    .get(new Date(2006, 0, 2, 15, 4, 5))
-    .then((environment) => {
-      expect(environment).toStrictEqual({
-        timestamp: new Date(2006, 0, 2, 15, 4, 5),
-        temperature: toValueObject<Number, TemperatureCelcicus>(26),
-        humidity: toValueObject<Number, HumidityPercent>(77),
-      });
-    })
-    .finally(() => {
-      recorder.close();
-    });
+  // NOTE: you should wait promise, otherwise test finishes and passes BEFORE it is resolved!
+  await expect(
+    repository.get(new Date(2006, 0, 2, 15, 4, 5)),
+  ).resolves.toStrictEqual({
+    timestamp: new Date(2006, 0, 2, 15, 4, 5),
+    temperature: toValueObject<Number, TemperatureCelcicus>(26),
+    humidity: toValueObject<Number, HumidityPercent>(77),
+  });
+  recorder.close();
 });
 
-test('meter device is not found', () => {
+test('meter device is not found', async () => {
   //const recorder = recordTape('get_environment_failure_notfound');
-  const recorder = replayTape('get_environment_failure_notfound');
+  const recorder = await replayTape('get_environment_failure_notfound');
 
   const config = new Config(
     'http://localhost:5544', // to talkback proxy server
@@ -138,10 +138,10 @@ test('meter device is not found', () => {
     envs.SWITCHBOT_AUTH_TOKEN,
   );
 
-  const repository = new MeterEnvironmentRepository(config);
+  const repository = new MeterEnvironmentRepository(config, fetch);
 
-  // NOTE: promise must be returned, otherwise test finishes and passes BEFORE it is resolved!
-  return expect(repository.get(new Date(2006, 0, 2, 15, 4, 5)))
+  // NOTE: you should wait promise, otherwise test finishes and passes BEFORE it is resolved!
+  await expect(repository.get(new Date(2006, 0, 2, 15, 4, 5)))
     .rejects.toThrow(
       'NotFoundDevice: meter device is not found: http://localhost:5544/devices/NOTFOUND404/status',
     )
@@ -150,19 +150,19 @@ test('meter device is not found', () => {
     });
 });
 
-test('unauthorized', () => {
+test('unauthorized', async () => {
   //const recorder = recordTape('get_environment_failure_unauthorized');
-  const recorder = replayTape('get_environment_failure_unauthorized');
+  const recorder = await replayTape('get_environment_failure_unauthorized');
 
   const config = new Config(
     'http://localhost:5544', // to talkback proxy server
     envs.METER_DEVICE_ID,
     'invalidtoken', // wrong auth token
   );
-  const repository = new MeterEnvironmentRepository(config);
+  const repository = new MeterEnvironmentRepository(config, fetch);
 
-  // NOTE: promise must be returned, otherwise test finishes and passes BEFORE it is resolved!
-  return expect(repository.get(new Date(2006, 0, 2, 15, 4, 5)))
+  // NOTE: you should wait promise, otherwise test finishes and passes BEFORE it is resolved!
+  await expect(repository.get(new Date(2006, 0, 2, 15, 4, 5)))
     .rejects.toThrow('Unauthorized: auth token may be invalid')
     .finally(() => {
       recorder.close();
@@ -174,19 +174,19 @@ test.each`
   ${'temperature is missing'} | ${'get_environment_failure_no_temperature_edited'}
   ${'humidity is missing'}    | ${'get_environment_failure_no_humidity_edited'}
   ${'statusCode is missing'}  | ${'get_environment_failure_no_status_code_edited'}
-`('$name', ({ tapeName }) => {
+`('$name', async ({ tapeName }) => {
   //const recorder = recordTape(tapeName);
-  const recorder = replayTape(tapeName);
+  const recorder = await replayTape(tapeName);
 
   const config = new Config(
     'http://localhost:5544', // to talkback proxy server
     envs.METER_DEVICE_ID,
     envs.SWITCHBOT_AUTH_TOKEN,
   );
-  const repository = new MeterEnvironmentRepository(config);
+  const repository = new MeterEnvironmentRepository(config, fetch);
 
-  // NOTE: promise must be returned, otherwise test finishes and passes BEFORE it is resolved!
-  return expect(repository.get(new Date(2006, 0, 2, 15, 4, 5)))
+  // NOTE: you should wait promise, otherwise test finishes and passes BEFORE it is resolved!
+  await expect(repository.get(new Date(2006, 0, 2, 15, 4, 5)))
     .rejects.toThrow('Unexpected')
     .finally(() => {
       recorder.close();

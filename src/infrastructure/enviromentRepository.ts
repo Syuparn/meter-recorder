@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 import { Config } from '../config/config';
 import {
   TemperatureCelcicus,
@@ -7,18 +6,21 @@ import {
   HumidityPercent,
 } from '../domain/environment';
 import { toValueObject } from '../domain/valueobject';
+import { Fetcher, GASFetcherFactory } from './fetcher';
 
 export class MeterEnvironmentRepository implements EnvironmentRepository {
   private readonly url: string;
   private readonly auth_token: string;
+  private readonly fetch: Fetcher;
 
-  constructor(config: Config) {
+  constructor(config: Config, fetch: Fetcher = GASFetcherFactory.create()) {
     this.url = this.urlFrom(config);
     this.auth_token = config.switchbot_auth_token;
+    this.fetch = fetch;
   }
 
   async get(timestamp: Date): Promise<Environment> {
-    const res = await fetch(this.url, {
+    const res = await this.fetch(this.url, {
       headers: {
         Authorization: this.auth_token,
       },
