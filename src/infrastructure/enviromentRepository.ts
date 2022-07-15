@@ -15,7 +15,7 @@ export class MeterEnvironmentRepository implements EnvironmentRepository {
 
   constructor(config: Config, fetch: Fetcher = GASFetcherFactory.create()) {
     this.url = this.urlFrom(config);
-    this.auth_token = config.switchbot_auth_token;
+    this.auth_token = config.switchbotAuthToken;
     this.fetch = fetch;
   }
 
@@ -76,6 +76,6 @@ export class MeterEnvironmentRepository implements EnvironmentRepository {
   }
 
   private urlFrom(config: Config): string {
-    return `${config.switchbot_endpoint}/devices/${config.meter_device_id}/status`;
+    return `${config.switchbotEndpoint}/devices/${config.meterDeviceID}/status`;
   }
 }

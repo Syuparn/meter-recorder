@@ -114,6 +114,7 @@ test('get environment from meter', async () => {
     'http://localhost:5544', // to talkback proxy server
     envs.METER_DEVICE_ID,
     envs.SWITCHBOT_AUTH_TOKEN,
+    'my_folder',
   );
   const repository = new MeterEnvironmentRepository(config, fetch);
 
@@ -136,6 +137,7 @@ test('meter device is not found', async () => {
     'http://localhost:5544', // to talkback proxy server
     'NOTFOUND404', // wrong deviceID
     envs.SWITCHBOT_AUTH_TOKEN,
+    'my_folder',
   );
 
   const repository = new MeterEnvironmentRepository(config, fetch);
@@ -158,6 +160,7 @@ test('unauthorized', async () => {
     'http://localhost:5544', // to talkback proxy server
     envs.METER_DEVICE_ID,
     'invalidtoken', // wrong auth token
+    'my_folder',
   );
   const repository = new MeterEnvironmentRepository(config, fetch);
 
@@ -182,6 +185,7 @@ test.each`
     'http://localhost:5544', // to talkback proxy server
     envs.METER_DEVICE_ID,
     envs.SWITCHBOT_AUTH_TOKEN,
+    'my_folder',
   );
   const repository = new MeterEnvironmentRepository(config, fetch);
 

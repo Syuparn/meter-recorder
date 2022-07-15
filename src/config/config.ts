@@ -1,13 +1,15 @@
 export class Config {
   constructor(
-    public readonly switchbot_endpoint: string,
-    public readonly meter_device_id: string,
-    public readonly switchbot_auth_token: string,
+    public readonly switchbotEndpoint: string,
+    public readonly meterDeviceID: string,
+    public readonly switchbotAuthToken: string,
+    public readonly folderName: string,
   ) {
-    this.switchbot_endpoint =
-      switchbot_endpoint || 'https://api.switch-bot.com/v1.0';
-    this.meter_device_id = meter_device_id;
-    this.switchbot_auth_token = switchbot_auth_token;
+    this.switchbotEndpoint =
+      switchbotEndpoint || 'https://api.switch-bot.com/v1.0';
+    this.meterDeviceID = meterDeviceID;
+    this.switchbotAuthToken = switchbotAuthToken;
+    this.folderName = folderName || 'meter_recorder';
   }
 }
 

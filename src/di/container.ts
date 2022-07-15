@@ -12,7 +12,7 @@ export function container(): Controller {
 
   const environmentRepository = new MeterEnvironmentRepository(config);
 
-  const getEnvironmentOutputPort = new GetEnvironmentPresenter();
+  const getEnvironmentOutputPort = new GetEnvironmentPresenter(config);
 
   const getEnvironmentInputPort = new GetEnvironment(
     getEnvironmentOutputPort,

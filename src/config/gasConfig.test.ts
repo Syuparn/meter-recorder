@@ -13,29 +13,47 @@ test.each([
   {
     name: 'all properties are set',
     properties: {
-      switchbot_endpoint: 'http://example.com',
-      meter_device_id: '1234567890AB',
-      switchbot_auth_token: 'auth1234',
+      switchbotEndpoint: 'http://example.com',
+      meterDeviceID: '1234567890AB',
+      switchbotAuthToken: 'auth1234',
+      folderName: 'my_folder',
     },
-    expected: new Config('http://example.com', '1234567890AB', 'auth1234'),
+    expected: new Config(
+      'http://example.com',
+      '1234567890AB',
+      'auth1234',
+      'my_folder',
+    ),
   },
   {
     name: 'all properties are not set',
     properties: {
-      switchbot_endpoint: null,
-      meter_device_id: null,
-      switchbot_auth_token: null,
+      switchbotEndpoint: null,
+      meterDeviceID: null,
+      switchbotAuthToken: null,
+      folderName: null,
     },
-    expected: new Config('https://api.switch-bot.com/v1.0', '', ''),
+    expected: new Config(
+      'https://api.switch-bot.com/v1.0',
+      '',
+      '',
+      'meter_recorder',
+    ),
   },
   {
     name: 'empty string is treated like null',
     properties: {
-      switchbot_endpoint: '',
-      meter_device_id: '',
-      switchbot_auth_token: '',
+      switchbotEndpoint: '',
+      meterDeviceID: '',
+      switchbotAuthToken: '',
+      folderName: '',
     },
-    expected: new Config('https://api.switch-bot.com/v1.0', '', ''),
+    expected: new Config(
+      'https://api.switch-bot.com/v1.0',
+      '',
+      '',
+      'meter_recorder',
+    ),
   },
 ])('$name', ({ properties, expected }) => {
   const configFactory = new GASConfigFactory(new DummyProperties(properties));
