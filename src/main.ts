@@ -1,9 +1,13 @@
 import { container } from './di/container';
 
 export function handler() {
-  const controller = container();
-  const req = { timestamp: new Date() };
-  controller.getEnvironment(req);
+  try {
+    const controller = container();
+    const req = { timestamp: new Date() };
+    controller.getEnvironment(req);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 // HACK: enable to execute handler from GAS
