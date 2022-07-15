@@ -13,7 +13,7 @@ import { Options } from 'talkback/options';
 function readEnvs(): { [keys: string]: string } {
   dotenv.config(); // set dotenv variables to process.env
 
-  const keys = ['METER_DEVICE_ID', 'SWITCHBOT_AUTH_TOKEN', 'HUB_DEVICE_ID'];
+  const keys = ['meterDeviceID', 'switchbotAuthToken', 'hubDeviceID'];
   let envs: { [keys: string]: string } = {};
 
   for (const key of keys) {
@@ -78,14 +78,14 @@ async function handleTape(
 
 function replaceCredentialsInTape(tape: Tape, _context: MatchingContext): Tape {
   // replace deviceID with dummy string
-  tape.req.url = tape.req.url.replace(envs.METER_DEVICE_ID, dummyDeviceID);
+  tape.req.url = tape.req.url.replace(envs.meterDeviceID, dummyDeviceID);
   // NOTE: it appears not only request path but response body
   if (tape.res != null) {
     tape.res.body = Buffer.from(
       tape.res.body
         .toString()
-        .replace(envs.METER_DEVICE_ID, dummyDeviceID)
-        .replace(envs.HUB_DEVICE_ID, dummyHubDeviceID),
+        .replace(envs.meterDeviceID, dummyDeviceID)
+        .replace(envs.hubDeviceID, dummyHubDeviceID),
     );
   }
 
@@ -100,7 +100,7 @@ function replaceCredentialsInTape(tape: Tape, _context: MatchingContext): Tape {
 function urlMatcher(tape: Tape, req: Req): boolean {
   // NOTE: replace deviceID in path with dummy string before comparison
   // because it should be secret and it is replaced with dummy values in tapes
-  req.url = req.url.replace(envs.METER_DEVICE_ID, dummyDeviceID);
+  req.url = req.url.replace(envs.meterDeviceID, dummyDeviceID);
   console.log('matcher: ' + req.url);
 
   return req.url === tape.req.url;
@@ -112,8 +112,8 @@ test('get environment from meter', async () => {
 
   const config = new Config(
     'http://localhost:5544', // to talkback proxy server
-    envs.METER_DEVICE_ID,
-    envs.SWITCHBOT_AUTH_TOKEN,
+    envs.meterDeviceID,
+    envs.switchbotAuthToken,
     'my_folder',
   );
   const repository = new MeterEnvironmentRepository(config, fetch);
@@ -136,7 +136,7 @@ test('meter device is not found', async () => {
   const config = new Config(
     'http://localhost:5544', // to talkback proxy server
     'NOTFOUND404', // wrong deviceID
-    envs.SWITCHBOT_AUTH_TOKEN,
+    envs.switchbotAuthToken,
     'my_folder',
   );
 
@@ -158,7 +158,7 @@ test('unauthorized', async () => {
 
   const config = new Config(
     'http://localhost:5544', // to talkback proxy server
-    envs.METER_DEVICE_ID,
+    envs.meterDeviceID,
     'invalidtoken', // wrong auth token
     'my_folder',
   );
@@ -183,8 +183,8 @@ test.each`
 
   const config = new Config(
     'http://localhost:5544', // to talkback proxy server
-    envs.METER_DEVICE_ID,
-    envs.SWITCHBOT_AUTH_TOKEN,
+    envs.meterDeviceID,
+    envs.switchbotAuthToken,
     'my_folder',
   );
   const repository = new MeterEnvironmentRepository(config, fetch);
