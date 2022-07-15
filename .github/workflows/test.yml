@@ -7,13 +7,16 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
+    env:
+      # dummy values for unit tests
+      switchbotAuthToken: dummyauth1234
+      meterDeviceID: 1234567890AB
+      hubDeviceID: HUB123456789
     strategy:
       matrix:
         node-version: [16.x]
-
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
